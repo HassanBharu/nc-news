@@ -4,7 +4,7 @@ exports.up = function (knex, Promise) {
         articlesTable.increments('article_id').primary();
         articlesTable.string('title').notNullable();
         articlesTable.string('body').notNullable();
-        articlesTable.integer('votes').notNullable();
+        articlesTable.integer('votes').defaultTo(0)
 
         articlesTable.string('topic').notNullable()
         articlesTable.foreign('topic').references('topics.slug')
@@ -12,7 +12,7 @@ exports.up = function (knex, Promise) {
         articlesTable.string('author').notNullable();
         articlesTable.foreign('author').references('users.username')
 
-        articlesTable.date('created_at')
+        articlesTable.datetime('created_at')
     })
 };
 
