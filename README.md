@@ -49,3 +49,20 @@ Run the server with `node`:
 ```bash
 npm start
 ```
+
+
+
+exports.up = function (knex, Promise) {
+    return knex.schema.createTable('articles', articlesTable => {
+        articlesTable.increments('article_id').primary();
+        articlesTable.string('title').notNullable();
+        articlesTable.string('tpoic').notNullable();
+        articlesTable.string('author').notNullable();
+        articlesTable.string('body').notNullable();
+        articlesTable.integer('created_at')
+    })
+};
+
+exports.down = function (knex, Promise) {
+    return knex.schema.dropTable('articles')
+};
