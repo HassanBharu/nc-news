@@ -8,11 +8,11 @@ exports.up = function (knex, Promise) {
         commentTable.integer('article_id')
         commentTable.foreign('article_id').references('articles.article_id')
         commentTable.integer('votes').defaultTo(0)
-        commentTable.datetime('created_at')
+        commentTable.datetime('created_at').defaultTo(knex.fn.now())
         commentTable.string('body').notNullable()
     })
 };
 
 exports.down = function (knex, Promise) {
-    return knex.schea('comments')
+    return knex.schema.dropTable('comments')
 };

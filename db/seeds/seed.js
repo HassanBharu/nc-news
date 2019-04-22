@@ -1,4 +1,6 @@
 const { topicsData, articleData, commentsData, usersData } = require('../data');
+const { formatArticleData, formatCommentData } = require('../utils/function')
+
 
 exports.seed = (knex, Promise) => {
   return knex.migrate
@@ -8,14 +10,20 @@ exports.seed = (knex, Promise) => {
       return knex('topics')
         .insert(topicsData)
         .returning('*')
-    }).then((topicData) => {
+    }).then(() => {
 
       return knex('users')
         .insert(usersData)
         .returning('*')
-    }).then((data) => {
-
-      console.log(data)
+    }).then(() => {
+      return knex('articles')
+        .insert(formatArticleData(articleData, topicsData, usersData))
+        .returning('*')
+    }).then((articles) => {
+      console.log(articles)
+      return knex('comments')
+        .insert(formatCommentData(commentsData, articles, usersData))
+        .returning('*')
     })
 };
 
