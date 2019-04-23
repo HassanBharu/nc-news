@@ -19,11 +19,9 @@ exports.seed = (knex, Promise) => {
       return knex('articles')
         .insert(formatArticleData(articleData, topicsData, usersData))
         .returning('*')
-    }).then((articles) => {
-      console.log(articles)
+    }).then((articleRows) => {
       return knex('comments')
-        .insert(formatCommentData(commentsData, articles, usersData))
-        .returning('*')
+        .insert(formatCommentData(commentsData, articleRows, usersData))
     })
 };
 

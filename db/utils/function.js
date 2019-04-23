@@ -51,54 +51,60 @@ function formatArticleData(article, topic, user) {
 
 
 
-function formatCommentData(comments, article, user) {
+function formatCommentData(comments, articles, user) {
 
     let formattedComment = []
 
-    if (comments !== 0) {
+    if (comments.length !== 0) {
         for (let i = 0; i < comments.length; i++) {
-            let newComments = { ...comments[i] }
-
-            let newArticle = article.find(element =>
-                element.belongs_to === article.title
+            let newComment = { ...comments[i] }
+            let newArticle = articles.find(article =>
+                newComment.belongs_to === article.title
 
             )
+            delete newComment.belongs_to
+            delete newComment.created_by
+            delete newComment.created_at
+            newComment.article_id = newArticle.article_id
+            newComment.author = newArticle.author
 
-            delete newComments.belongs_to
-            newComments.article_id = newArticle.article_id
-            formattedComment.push(newComments)
+
+            formattedComment.push(newComment)
         }
-    }
-
-    let finalFormatComment = []
-
-    for (let i = 0; i < formattedComment.length; i++) {
-        let finalComment = { ...formattedComment[i] }
-
-        let newUser = user.find(element =>
-
-            element.username === finalComment.created_by
-
-        )
-
-
-        delete finalComment.created_by
-        delete finalComment.created_at
-
-        finalComment.author = newUser.username
-        finalFormatComment.push(finalComment)
 
     }
-
-    console.log(finalFormatComment)
-
-
-    return finalFormatComment
-
+    return formattedComment
 }
 
+/*  let finalFormatComment = []
+ 
+ for (let i = 0; i < formattedComment.length; i++) {
+     let finalComment = { ...formattedComment[i] }
+ 
+     let newUser = user.find(element =>
+ 
+         element.username === finalComment.created_by
+ 
+     )
+     console.log(finalComment)
+ 
+     delete finalComment.created_by
+     delete finalComment.created_at
+     //  console.log(newUser)
+     finalComment.author = newUser.username
+     finalFormatComment.push(finalComment)
+ 
+ }
+ 
+ console.log(finalFormatComment)
+ 
+ 
+ return finalFormatComment
+*/
 
 
 
 
-module.exports = { formatArticleData, formatCommentData };
+
+
+module.exports = { formatArticleData, formatCommentData }; 

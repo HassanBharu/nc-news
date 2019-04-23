@@ -8,18 +8,17 @@ const connection = require('../db/connection');
 
 const request = supertest(app);
 
-describe('/', () => {
+describe('/api', () => {
   // beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
-  describe('/api', () => {
+  describe('/articles', () => {
     it('GET status:200', () => {
       return request
-        .get('/api')
+        .get('/api/articles')
         .expect(200)
-        .then(({ body }) => {
-          expect(body.ok).to.equal(true);
-        });
+
+
     });
   });
 });
