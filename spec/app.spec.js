@@ -77,18 +77,49 @@ describe.only('/api', () => {
           })
       })
       it('PATCH status:200 - allows to add a new field to the current table', () => {
-        // const votes = { inc_votes: 2 }
-
         return request
           .patch('/api/articles/2')
           .send({ inc_votes: 4 })
           .expect(200)
           .then(({ body }) => {
-            expect(body.article[0].votes).to.equal(2)
+            expect(body.article[0].votes).to.equal(4)
           })
       })
-    })
+      describe.only('/:article_id/comments', () => {
+        it('GET status:200 - responds with an array of comments for the given article_id', () => {
+          return request
+            .get('/api/articles/1/comments')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.comments[0]).to.contain.keys('comment_id', 'votes', 'created_at', 'author', 'body')
+            })
+        })
+        it('GET status:200 - responds a query sort_by which sorts the articles by any valid coumn or defaults to created_at', () => {
+          return request
+            .get('/api/articles/1/comments?sort_by=comment_id&order=asc')
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.comments[0].comment_id).to.equal(2)
+            })
+        })
+        it('POST status:201 - responds with the posted object and accepts the properties username, body', () => {
 
+          const postReq = {
+            username: 'billy',
+            body: 'THE BEST ARTICLE EVER MAN!!'
+          }
+
+          return request
+            .post('/api/articles/1/comments')
+            .send(postReq)
+            .expect(201)
+            .then(({ body }) => {
+              expect(body.comments[0].comment_id).to.equal(2)
+            })
+        })
+
+      })
+    })
   })
 
 });
