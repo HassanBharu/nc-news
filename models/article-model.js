@@ -37,9 +37,9 @@ exports.fetchArticleComments = ({ article_id, sort_by, order = 'desc' }) => {
         .returning('*')
 }
 
-exports.addArticle = ({ username, body, article_id }) => {
+exports.addComment = ({ username, body, article_id }) => {
     const obj = {
-        username: username,
+        author: username,
         body: body,
         article_id: article_id
     }

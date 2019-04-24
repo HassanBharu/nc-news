@@ -76,7 +76,7 @@ describe.only('/api', () => {
             expect(body.article[0].article_id).to.eql(2)
           })
       })
-      it('PATCH status:200 - allows to add a new field to the current table', () => {
+      it('PATCH status:200 - allows incrementation to the votes column for a specific article', () => {
         return request
           .patch('/api/articles/2')
           .send({ inc_votes: 4 })
@@ -105,7 +105,7 @@ describe.only('/api', () => {
         it('POST status:201 - responds with the posted object and accepts the properties username, body', () => {
 
           const postReq = {
-            username: 'billy',
+            username: 'icellusedkars',
             body: 'THE BEST ARTICLE EVER MAN!!'
           }
 
@@ -114,8 +114,42 @@ describe.only('/api', () => {
             .send(postReq)
             .expect(201)
             .then(({ body }) => {
-              expect(body.comments[0].comment_id).to.equal(2)
+              expect(body.comment[0].body).to.eql('THE BEST ARTICLE EVER MAN!!')
             })
+        })
+        describe.only('/comments/:comment_id', () => {
+          it('PATCH status:200 - allows for incrementation on the votes column for a spectific comment_id', () => {
+
+            const votes = {
+              inc_votes: 2
+            }
+            return request
+              .patch('/api/comments/2')
+              .send(votes)
+              .expect(200)
+              .then(({ body }) => {
+                expect(body.comment[0].votes).to.equal(16)
+              })
+          })
+          it('DELETE status:200 - responds with the deleted item with a given comment_id', () => {
+            return request
+              .delete('/api/comments/4')
+              .expect(204)
+              .then(({ body }) => {
+
+              })
+          })
+          describe('/:username', () => {
+            it('GET status:200- responds with the user with the given username', () => {
+              return request
+                .get('/api/users/icellusedkars')
+                .expect(200)
+                .then(({ body }) => {
+                  expect(body.user[0].username).to.eql('icellusedkars')
+                })
+
+            })
+          })
         })
 
       })
