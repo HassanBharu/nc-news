@@ -12,11 +12,11 @@ exports.getAllComments = (req, res, next) => {
     fetchAllComments()
         .then(comments => {
             res.status(200).send({ comments })
-        })
+        }).catch(next)
 }
 exports.deleteComment = (req, res, next) => {
     removeComment(req.params)
         .then(comment => {
             res.status(204).send({ comment })
-        })
+        }).catch(next)
 }

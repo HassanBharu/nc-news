@@ -8,7 +8,7 @@ const connection = require('../db/connection');
 
 const request = supertest(app);
 
-describe('/api', () => {
+describe.only('/api', () => {
   beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
@@ -135,6 +135,16 @@ describe('/api', () => {
               expect(body.msg).to.eql('bad request')
             })
         })
+        it('PATCH status:400 - responds with 400 bad request if an invalid input has been placed for the patch request empty', () => {
+          return request
+            .patch('/api/articles/2')
+            .send({})
+            .expect(400)
+            .then(({ body }) => {
+
+              expect(body.msg).to.eql('bad request')
+            })
+        })
         describe('/:article_id/comments', () => {
           it('GET status:200 - responds with an array of comments for the given article_id', () => {
             return request
@@ -232,7 +242,7 @@ describe('/api', () => {
                   expect(body.comment[0].votes).to.equal(16)
                 })
             })
-            it.only('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {
+            it('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {
 
               const votes = {
                 inc_vot: 2
@@ -245,7 +255,7 @@ describe('/api', () => {
                   expect(body.msg).to.eql('bad request')
                 })
             })
-            it.only('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {
+            it('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {
 
               const votes = {
                 inc_vot: 'g'
@@ -258,11 +268,31 @@ describe('/api', () => {
                   expect(body.msg).to.eql('bad request')
                 })
             })
+            it('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {
+
+
+              return request
+                .patch('/api/comments/2')
+                .send({})
+                .expect(400)
+                .then(({ body }) => {
+                  expect(body.msg).to.eql('bad request')
+                })
+            })
             it('DELETE status:204 - responds with the status 204 and no content', () => {
               return request
                 .delete('/api/comments/4')
                 .expect(204)
 
+            })
+            it('DELETE status:400 - responds bad request with status 400', () => {
+              return request
+                .delete('/api/comments/m')
+                //.expect(400)
+                .then(({ body }) => {
+                  console.log(body)
+                  expect(body.msg).to.equal('bad request')
+                })
             })
             describe('/:username', () => {
               it('GET status:200- responds with the user with the given username', () => {
