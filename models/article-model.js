@@ -16,9 +16,16 @@ exports.fetchAllArticles = ({ author, topic, sort_by, order = 'desc' }) => {
 }
 
 exports.fetchArticlesById = ({ article_id }) => {
-    return connection('articles')
-        .where('article_id', '=', article_id)
+    return connection
+        .select('articles.*')
+        .from('articles')
+        .leftJoin('comments', 'comments.article_id', 'articles.article_id')
+        .groupBy('articles.article_id')
+        .count('comments.comment_id AS comment_count')
+
+        .where('articles.article_id', '=', article_id)
 }
+
 
 exports.updateArticleById = ({ inc_votes, article_id }) => {
     return connection('articles')

@@ -11,13 +11,12 @@ exports.patchComment = (req, res, next) => {
 exports.getAllComments = (req, res, next) => {
     fetchAllComments()
         .then(comments => {
-            console.log(comments)
-            res.status(204).send({ comments })
+            res.status(200).send({ comments })
         })
 }
 exports.deleteComment = (req, res, next) => {
     removeComment(req.params)
         .then(comment => {
-            res.status(200).send({ comment })
+            res.status(204).send({ comment })
         })
 }
