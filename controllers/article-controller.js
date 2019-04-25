@@ -16,29 +16,31 @@ exports.getArticleById = (req, res, next) => {
             if (article.length !== 0) {
                 res.status(200).send({ article })
             } else return Promise.reject({ status: 404, msg: 'id not found' })
-        }).catch(console.log)
+        }).catch(next)
 }
 
 exports.patchArticleById = (req, res, next) => {
     updateArticleById({ ...req.body, ...req.params })
         .then(article => {
-            if (article.votes !== Number) {
-                res.status(200).send({ article })
-            } else return Promise.reject({ status: 400, msg: 'bad request' })
+            res.status(200).send({ article })
         }).catch(next)
 }
 
-exports.getAllArticleComments = (req, res, nex) => {
+exports.getAllArticleComments = (req, res, next) => {
 
     fetchArticleComments({ ...req.params, ...req.query })
         .then(comments => {
-            res.status(200).send({ comments })
-        })
+
+            if (comments.length !== 0) {
+                res.status(200).send({ comments })
+            } else return Promise.reject({ status: 400, msg: 'invalid id' })
+        }).catch(next)
 }
 
 exports.postComment = (req, res, next) => {
     addComment({ ...req.body, ...req.params })
         .then(comment => {
+            console.log(comment)
             res.status(201).send({ comment })
-        })
+        }).catch(next)
 }

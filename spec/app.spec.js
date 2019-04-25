@@ -82,12 +82,12 @@ describe('/api', () => {
           expect(body.articles[0].article_id).to.eql(1)
         })
     })
-    it('GET status:400 - responds with bad request if the queries column does not exist', () => {
+    it('GET status:404 - responds with id not found if the queries column does not exist', () => {
       return request
         .get('/api/articles?sort_by=mother_id&order=asc')
-
+        .expect(404)
         .then(({ body }) => {
-          expect(body.msg).to.eql('bad request')
+          expect(body.msg).to.eql('id not found')
         })
     })
     it('GET status:200 - has all keys inclulding comment_count', () => {
@@ -125,13 +125,13 @@ describe('/api', () => {
               expect(body.article[0].votes).to.equal(4)
             })
         })
-        it.only('PATCH status:400 - responds with 400 bad request if an invalid input has been placed for the patch request', () => {
+        it('PATCH status:400 - responds with 400 bad request if an invalid input has been placed for the patch request', () => {
           return request
             .patch('/api/articles/2')
             .send({ inc_votes: 'g' })
             .expect(400)
             .then(({ body }) => {
-              console.log(body)
+
               expect(body.msg).to.eql('bad request')
             })
         })
@@ -142,6 +142,14 @@ describe('/api', () => {
               .expect(200)
               .then(({ body }) => {
                 expect(body.comments[0]).to.contain.keys('comment_id', 'votes', 'created_at', 'author', 'body')
+              })
+          })
+          it('GET status:400 - responds with 400 if given a incorrect article_id to search with', () => {
+            return request
+              .get('/api/articles/656/comments')
+              .expect(400)
+              .then(({ body }) => {
+                expect(body.msg).to.eql('invalid id')
               })
           })
           it('GET status:200 - responds a query sort_by which sorts the articles by any valid coumn or defaults to created_at', () => {
@@ -167,6 +175,49 @@ describe('/api', () => {
                 expect(body.comment[0].body).to.eql('THE BEST ARTICLE EVER MAN!!')
               })
           })
+          it('POST status:400 - responds bad request if the value of body has been entered incorrectly', () => {
+
+            const postReq = {
+              username: 'icellused',
+              body: 'THE BEST ARTICLE EVER MAN!!'
+            }
+
+            return request
+              .post('/api/articles/1/comments')
+              .send(postReq)
+              .expect(400)
+              .then(({ body }) => {
+                expect(body.msg).to.equal('bad request')
+              })
+          })
+          it('POST status:400 - responds bad request if the KEY of body has been entered incorrectly', () => {
+
+            const postReq = {
+              userna: 'icellused',
+              body: 'THE BEST ARTICLE EVER MAN!!'
+            }
+
+            return request
+              .post('/api/articles/1/comments')
+              .send(postReq)
+              .expect(400)
+              .then(({ body }) => {
+                expect(body.msg).to.equal('bad request')
+              })
+          })
+          it('POST status:400 - responds bad request if the body has no key value pairs entered incorrectly', () => {
+
+            const postReq = {}
+
+
+            return request
+              .post('/api/articles/1/comments')
+              .send(postReq)
+              .expect(400)
+              .then(({ body }) => {
+                expect(body.msg).to.equal('bad request')
+              })
+          })
           describe('/comments/:comment_id', () => {
             it('PATCH status:200 - allows for incrementation on the votes column for a spectific comment_id', () => {
 
@@ -179,6 +230,32 @@ describe('/api', () => {
                 .expect(200)
                 .then(({ body }) => {
                   expect(body.comment[0].votes).to.equal(16)
+                })
+            })
+            it.only('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {
+
+              const votes = {
+                inc_vot: 2
+              }
+              return request
+                .patch('/api/comments/2')
+                .send(votes)
+                .expect(400)
+                .then(({ body }) => {
+                  expect(body.msg).to.eql('bad request')
+                })
+            })
+            it.only('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {
+
+              const votes = {
+                inc_vot: 'g'
+              }
+              return request
+                .patch('/api/comments/2')
+                .send(votes)
+                .expect(400)
+                .then(({ body }) => {
+                  expect(body.msg).to.eql('bad request')
                 })
             })
             it('DELETE status:204 - responds with the status 204 and no content', () => {

@@ -13,24 +13,33 @@ app.all('/*', routeNotFound);
 
 app.use((err, req, res, next) => {
 
-
     if (err.status) {
         console.log(err.status)
         res.status(err.status).send({ msg: err.msg })
     } else next(err)
 })
 
-app.use((err, req, res, next) => {
-    if (err.code) {
-        const errRef = { '22P02': 'bad request' }
-        res.status(400).send(errRef[err.code])
-    }
+// 400 errors 
 
-    /* if (err.code === '22P02') {
+app.use((err, req, res, next) => {
+    console.log(err.code)
+    const errRef = ['22P02', '23503', '23502']
+
+    if (errRef.includes(err.code)) {
         res.status(400).send({ msg: 'bad request' })
-    } */
+    } else next(err)
 })
 
+// 404 errors
+app.use((err, req, res, next) => {
+    console.log(err.code)
+    const psqlErr = ['42703']
+
+    if (psqlErr.includes(err.code)) {
+        res.status(404).send({ msg: 'id not found' })
+    } else next(err)
+
+})
 
 app.use(handle500);
 

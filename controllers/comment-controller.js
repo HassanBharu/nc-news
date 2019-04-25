@@ -4,7 +4,7 @@ exports.patchComment = (req, res, next) => {
     updateComment({ ...req.body, ...req.params })
         .then(comment => {
             res.status(200).send({ comment })
-        })
+        }).catch(next)
 }
 
 
