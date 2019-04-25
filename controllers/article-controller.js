@@ -8,7 +8,6 @@ exports.getAllArticles = (req, res, next) => {
             }
             else return Promise.reject({ status: 400, msg: "page not found" })
         }).catch(next)
-
 }
 
 exports.getArticleById = (req, res, next) => {
@@ -17,7 +16,7 @@ exports.getArticleById = (req, res, next) => {
             if (article.length !== 0) {
                 res.status(200).send({ article })
             } else return Promise.reject({ status: 404, msg: 'id not found' })
-        }).catch(next)
+        }).catch(console.log)
 }
 
 exports.patchArticleById = (req, res, next) => {

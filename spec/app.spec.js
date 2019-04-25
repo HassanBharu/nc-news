@@ -87,7 +87,6 @@ describe('/api', () => {
         .get('/api/articles?sort_by=mother_id&order=asc')
 
         .then(({ body }) => {
-          console.log(body)
           expect(body.msg).to.eql('bad request')
         })
     })
@@ -126,7 +125,7 @@ describe('/api', () => {
               expect(body.article[0].votes).to.equal(4)
             })
         })
-        it('PATCH status:400 - responds with 400 bad request if an invalid input has been placed for the patch request', () => {
+        it.only('PATCH status:400 - responds with 400 bad request if an invalid input has been placed for the patch request', () => {
           return request
             .patch('/api/articles/2')
             .send({ inc_votes: 'g' })
