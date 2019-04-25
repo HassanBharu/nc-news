@@ -14,7 +14,6 @@ app.all('/*', routeNotFound);
 app.use((err, req, res, next) => {
 
     if (err.status) {
-        console.log(err.status)
         res.status(err.status).send({ msg: err.msg })
     } else next(err)
 })
@@ -22,7 +21,6 @@ app.use((err, req, res, next) => {
 // 400 errors 
 
 app.use((err, req, res, next) => {
-    console.log(err.code)
     const errRef = ['22P02', '23503', '23502']
 
     if (errRef.includes(err.code)) {
@@ -32,7 +30,6 @@ app.use((err, req, res, next) => {
 
 // 404 errors
 app.use((err, req, res, next) => {
-    console.log(err.code)
     const psqlErr = ['42703']
 
     if (psqlErr.includes(err.code)) {

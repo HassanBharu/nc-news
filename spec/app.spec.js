@@ -288,9 +288,7 @@ describe.only('/api', () => {
             it('DELETE status:400 - responds bad request with status 400', () => {
               return request
                 .delete('/api/comments/m')
-                //.expect(400)
                 .then(({ body }) => {
-                  console.log(body)
                   expect(body.msg).to.equal('bad request')
                 })
             })

@@ -22,7 +22,6 @@ exports.getArticleById = (req, res, next) => {
 exports.patchArticleById = (req, res, next) => {
     updateArticleById({ ...req.body, ...req.params })
         .then(article => {
-            console.log(article)
             res.status(200).send({ article })
         }).catch(next)
 }
@@ -41,7 +40,6 @@ exports.getAllArticleComments = (req, res, next) => {
 exports.postComment = (req, res, next) => {
     addComment({ ...req.body, ...req.params })
         .then(comment => {
-            console.log(comment)
             res.status(201).send({ comment })
         }).catch(next)
 }
