@@ -4,10 +4,10 @@ const articleRouter = require('../routes/articles-router')
 const topicRouter = require('../routes/topic-router')
 const commentRouter = require('../routes/comments-router')
 const usersRouter = require('../routes/users-router')
-const { endpoints } = require('../controllers/api-controller')
+const endpoints = require('../controllers/api-controller')
 
 const getEndPoints = (req, res, next) => {
-  res.status(200).send(endPoints);
+  res.status(200).send(endpoints);
 };
 
 apiRouter
