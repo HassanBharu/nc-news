@@ -1,13 +1,3 @@
-// what data do we want manipulated?
-
-// articles table - 
-// 1. automatically creates a article_id as primary key
-//2. title will be a normal insert'
-// 3. body will be a normal insert
-// 4. votes normal insert
-// 5. topic needs to reference the topic primary key from the topics table
-
-
 function formatArticleData(article, topic, user) {
 
     let formattedArticle = []
@@ -20,8 +10,10 @@ function formatArticleData(article, topic, user) {
                 element.slug === newArticle.topic
 
             )
+
+            newArticle.created_at = new Date(newArticle.created_at)
             delete newArticle.topic
-            delete newArticle.created_at
+            // delete newArticle.created_at
 
             newArticle.topic = newTopic.slug
             formattedArticle.push(newArticle)
@@ -76,31 +68,6 @@ function formatCommentData(comments, articles, user) {
     return formattedComment
 }
 
-/*  let finalFormatComment = []
- 
- for (let i = 0; i < formattedComment.length; i++) {
-     let finalComment = { ...formattedComment[i] }
- 
-     let newUser = user.find(element =>
- 
-         element.username === finalComment.created_by
- 
-     )
-     console.log(finalComment)
- 
-     delete finalComment.created_by
-     delete finalComment.created_at
-     //  console.log(newUser)
-     finalComment.author = newUser.username
-     finalFormatComment.push(finalComment)
- 
- }
- 
- console.log(finalFormatComment)
- 
- 
- return finalFormatComment
-*/
 
 
 

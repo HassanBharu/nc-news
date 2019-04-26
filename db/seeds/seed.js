@@ -25,25 +25,3 @@ exports.seed = (knex, Promise) => {
     })
 };
 
-
-/*
-const userPromise = knex('users')
-        .insert(userData)
-        .returning('*')
-
-  // Promise { pending }
-  // userPromise.then(data => console.log(data)
-
-const topicPromise  = knex('topics')
-        .insert(topicsData)
-        .returning('*')
-
-  // Promise { pending }
-
-  // topicPromise.then(topics => console.log(topics))
-
-        Promise.all([userPromise, topicPromise])
-        . then ([array of datas])
-
-
-*/

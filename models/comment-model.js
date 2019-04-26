@@ -18,5 +18,6 @@ exports.fetchAllComments = () => {
 exports.removeComment = ({ comment_id }) => {
     return connection('comments')
         .where({ comment_id })
+        .returning('*')
         .del()
 }
