@@ -4,11 +4,19 @@ const articleRouter = require('../routes/articles-router')
 const topicRouter = require('../routes/topic-router')
 const commentRouter = require('../routes/comments-router')
 const usersRouter = require('../routes/users-router')
+const { endpoints } = require('../controllers/api-controller')
+
+const getEndPoints = (req, res, next) => {
+  res.status(200).send(endPoints);
+};
 
 apiRouter
-  .route('/api')
-  .get((req, res) => res.send({ ok: true }))
+  .route('/')
+  .get(getEndPoints)
+
   .all(methodNotAllowed);
+
+
 
 apiRouter.use('/articles', articleRouter)
 apiRouter.use('/topics', topicRouter)
