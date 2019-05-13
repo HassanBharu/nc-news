@@ -19,8 +19,12 @@ apiRouter
 
 
 apiRouter.use('/articles', articleRouter)
+  .all(methodNotAllowed)
 apiRouter.use('/topics', topicRouter)
+  .all(methodNotAllowed)
 apiRouter.use('/comments', commentRouter)
+  .all(methodNotAllowed)
 apiRouter.use('/users', usersRouter)
+  .all(methodNotAllowed)
 
 module.exports = apiRouter;

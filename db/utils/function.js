@@ -13,7 +13,6 @@ function formatArticleData(article, topic, user) {
 
             newArticle.created_at = new Date(newArticle.created_at)
             delete newArticle.topic
-            // delete newArticle.created_at
 
             newArticle.topic = newTopic.slug
             formattedArticle.push(newArticle)
@@ -43,7 +42,7 @@ function formatArticleData(article, topic, user) {
 
 
 
-function formatCommentData(comments, articles, user) {
+function formatCommentData(comments, articles) {
 
     let formattedComment = []
 
@@ -56,7 +55,7 @@ function formatCommentData(comments, articles, user) {
             )
             delete newComment.belongs_to
             delete newComment.created_by
-            delete newComment.created_at
+            newComment.created_at = new Date(newComment.created_at)
             newComment.article_id = newArticle.article_id
             newComment.author = newArticle.author
 

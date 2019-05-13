@@ -13,6 +13,7 @@ exports.patchComment = (req, res, next) => {
 exports.getAllComments = (req, res, next) => {
     fetchAllComments()
         .then(comments => {
+            console.log(comments)
             res.status(200).send({ comments })
         }).catch(next)
 }
@@ -20,7 +21,6 @@ exports.deleteComment = (req, res, next) => {
     removeComment(req.params)
         .then(comment => {
             if (comment.length !== 0) {
-                console.log(comment)
                 res.status(204).send({ comment })
             } else return Promise.reject({ status: 404, msg: 'id does not exist' })
         }).catch(next)

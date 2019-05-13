@@ -45,12 +45,28 @@ describe.only('/api', () => {
           expect(body.articles).to.be.an('array')
         })
     })
+    it('GET status 200 - able to limit the page to show an amount of articles given in the query', () => {
+      return request
+        .get('/api/articles?limit=10')
+        .expect(200)
+        .then(({ body }) => {
+          expect(body.articles.length).to.equal(10)
+        })
+    })
+    it('GET status 200 - able to limit the page to show an amount of articles given in the query', () => {
+      return request
+        .get('/api/articles?p=1')
+        .expect(200)
+        .then(({ body }) => {
+          expect(body.articles).to.be.an('array')
+        })
+    })
     it('GET status:200 - is able to filter the articles by query author', () => {
       return request
         .get('/api/articles?author=icellusedkars')
         .expect(200)
         .then(({ body }) => {
-          expect(body.articles[0].author).to.eql('icellusedkars')
+          expect(body.articles[0].author).equal('icellusedkars')
         })
     })
     it('GET status:404 - responds with author not found or page not found when an invalid author is entered into the query', () => {
@@ -107,7 +123,7 @@ describe.only('/api', () => {
           .get('/api/articles/2')
           .expect(200)
           .then(({ body }) => {
-            expect(body.article[0].article_id).to.eql(2)
+            expect(body.article.article_id).to.eql(2)
           })
       })
       describe('/:article_id', () => {
@@ -125,7 +141,7 @@ describe.only('/api', () => {
             .send({ inc_votes: 4 })
             .expect(200)
             .then(({ body }) => {
-              expect(body.article[0].votes).to.equal(4)
+              expect(body.article.votes).to.equal(4)
             })
         })
         it('PATCH status:400 - responds with 400 bad request if an invalid input has been placed for the patch request', () => {
@@ -155,6 +171,15 @@ describe.only('/api', () => {
               .expect(200)
               .then(({ body }) => {
                 expect(body.comments[0]).to.contain.keys('comment_id', 'votes', 'created_at', 'author', 'body')
+              })
+          })
+          it('GET status:200 - responds with an array of comments with a given limit in the query', () => {
+            return request
+              .get('/api/articles/1/comments')
+              .expect(200)
+              .then(({ body }) => {
+                expect(body.comments.length)
+                  .to.equal(10)
               })
           })
           it('GET status:400 - responds with 400 if given a incorrect article_id to search with', () => {
@@ -203,7 +228,7 @@ describe.only('/api', () => {
                 expect(body.msg).to.equal('bad request')
               })
           })
-          it('POST status:400 - responds bad request if the KEY of body has been entered incorrectly', () => {
+          it.only('POST status:400 - responds bad request if the KEY of body has been entered incorrectly', () => {
 
             const postReq = {
               userna: 'icellusedkars',

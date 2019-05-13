@@ -1,7 +1,7 @@
 const connection = require('../db/connection')
 
 
-exports.fetchAllArticles = ({ author, topic, sort_by, order = 'desc' }) => {
+exports.fetchAllArticles = ({ author, topic, sort_by = 'created_at', order = 'desc', limit = 10, p = 1 }) => {
     return connection
         .select('articles.*')
         .from('articles')
@@ -12,7 +12,10 @@ exports.fetchAllArticles = ({ author, topic, sort_by, order = 'desc' }) => {
             if (author) query.where('articles.author', '=', author)
             if (topic) query.where({ topic })
         })
-        .orderBy(sort_by || 'created_at', order)
+        .orderBy(sort_by, order)
+        .limit(limit)
+        .offset((p - 1) * limit)
+
 }
 
 exports.fetchArticlesById = ({ article_id }) => {
@@ -34,7 +37,7 @@ exports.updateArticleById = ({ inc_votes, article_id }) => {
         .returning('*')
 }
 
-exports.fetchArticleComments = ({ article_id, sort_by, order = 'desc' }) => {
+exports.fetchArticleComments = ({ article_id, sort_by, order = 'desc', limit = 10, p = 1 }) => {
     return connection
         .select('comment_id', 'comments.votes', 'comments.created_at', 'comments.author', 'comments.body')
         .from('articles')
@@ -42,6 +45,8 @@ exports.fetchArticleComments = ({ article_id, sort_by, order = 'desc' }) => {
         .where('articles.article_id', '=', article_id)
         .orderBy(sort_by || 'created_at', order)
         .returning('*')
+        .limit(limit)
+        .offset((p - 1) * limit)
 }
 
 exports.addComment = ({ username, body, article_id }) => {
