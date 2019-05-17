@@ -286,12 +286,12 @@ describe.only('/api', () => {
                   expect(body.msg).to.eql('bad request')
                 })
             })
-            it('GET status:400 - responds with a single comment', () => {
+            it.only('GET status:400 - responds with a single comment', () => {
               return request
                 .get('/api/comments/2')
-                .expect(400)
+                .expect(200)
                 .then(({ body }) => {
-                  expect(body.comment.comment_id).to.eql(2)
+                  expect(body.comment[0].comment_id).to.eql(2)
                 })
             })
             it('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {

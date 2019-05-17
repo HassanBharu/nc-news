@@ -13,13 +13,14 @@ exports.patchComment = (req, res, next) => {
 exports.getAllComments = (req, res, next) => {
     fetchAllComments()
         .then(comments => {
-            console.log(comments)
             res.status(200).send({ comments })
         }).catch(next)
 }
 
 exports.getSigleComment = (req, res, next) => {
-    fetchSingleComment(req.params)
+    const { comment_id } = req.params
+
+    fetchSingleComment(comment_id)
         .then(comment => {
             res.status(200).send({ comment })
         })
