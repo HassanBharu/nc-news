@@ -1,17 +1,6 @@
 You are now connected to database "nc_news_test" as user "hassan".
- article_id | votes |                         title                          |    author     | count 
-------------+-------+--------------------------------------------------------+---------------+-------
-          4 |     0 | Student SUES Mitch!                                    | rogersop      |     0
-          7 |     0 | Z                                                      | icellusedkars |     0
-         10 |     0 | Seven inspirational thought leaders from Manchester UK | rogersop      |     0
-          9 |     0 | They're not exactly dogs, are they?                    | butter_bridge |     2
-          6 |     0 | A                                                      | icellusedkars |     1
-         12 |     0 | Moustache                                              | butter_bridge |     0
-          3 |     0 | Eight pug gifs that remind me of mitch                 | icellusedkars |     0
-          1 |   100 | Living in the shadow of a great man                    | butter_bridge |    13
-          5 |     0 | UNCOVERED: catspiracy to bring down democracy          | rogersop      |     2
-          2 |     0 | Sony Vaio; or, The Laptop                              | icellusedkars |     0
-          8 |     0 | Does Mitch predate civilisation?                       | icellusedkars |     0
-         11 |     0 | Am I a cat?                                            | icellusedkars |     0
-(12 rows)
+ comment_id |    author     | article_id | votes |         created_at         |                                                                body                                                                
+------------+---------------+------------+-------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------
+          2 | butter_bridge |          1 |    14 | 2016-11-22 12:36:03.389+00 | The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky.
+(1 row)
 

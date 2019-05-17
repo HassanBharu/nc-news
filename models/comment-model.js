@@ -12,6 +12,7 @@ exports.updateComment = ({ inc_votes, comment_id }) => {
 exports.getSingleComment = ({ comment_id }) => {
     return connection('comments')
         .where({ comment_id })
+        .returning('*')
 
 }
 
