@@ -228,7 +228,7 @@ describe.only('/api', () => {
                 expect(body.msg).to.equal('bad request')
               })
           })
-          it.only('POST status:400 - responds bad request if the KEY of body has been entered incorrectly', () => {
+          it('POST status:400 - responds bad request if the KEY of body has been entered incorrectly', () => {
 
             const postReq = {
               userna: 'icellusedkars',
@@ -284,6 +284,14 @@ describe.only('/api', () => {
                 .expect(400)
                 .then(({ body }) => {
                   expect(body.msg).to.eql('bad request')
+                })
+            })
+            it('GET status:400 - responds with a single comment', () => {
+              return request
+                .get('/api/comments/2')
+                .expect(400)
+                .then(({ body }) => {
+                  expect(body.comment.comment_id).to.eql(2)
                 })
             })
             it('PATCH status:400 - responds with bad request if the key of the body has been entered incorrectly', () => {

@@ -1,4 +1,4 @@
-const { updateComment, removeComment, fetchAllComments } = require('../models/comment-model')
+const { updateComment, removeComment, fetchAllComments, fetchSingleComment } = require('../models/comment-model')
 
 exports.patchComment = (req, res, next) => {
     updateComment({ ...req.body, ...req.params })
@@ -17,6 +17,14 @@ exports.getAllComments = (req, res, next) => {
             res.status(200).send({ comments })
         }).catch(next)
 }
+
+exports.getSigleComment = (req, res, next) => {
+    fetchSingleComment(req.params)
+        .then(comment => {
+            res.status(200).send({ comment })
+        })
+}
+
 exports.deleteComment = (req, res, next) => {
     removeComment(req.params)
         .then(comment => {
