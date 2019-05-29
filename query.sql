@@ -1,5 +1,11 @@
-\c nc_news_test
+\c nc_news
 
-SELECT * from comments 
-WHERE comment_id = 2
+
+INSERT INTO articles (author,body,topic,title)
+VALUES ('jessjelly', 'cool story','cooking','title')
+RETURNING *
+;
+--(SELECT slug from topics where slug = 'cooking')
+
+--select * from topics
 

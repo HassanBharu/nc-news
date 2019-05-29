@@ -1,6 +1,7 @@
-You are now connected to database "nc_news_test" as user "hassan".
- comment_id |    author     | article_id | votes |         created_at         |                                                                body                                                                
-------------+---------------+------------+-------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------
-          2 | butter_bridge |          1 |    14 | 2016-11-22 12:36:03.389+00 | The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky.
+You are now connected to database "nc_news" as user "hassan".
+ article_id | title |    body    | votes |  topic  |  author   |          created_at           
+------------+-------+------------+-------+---------+-----------+-------------------------------
+         38 | title | cool story |     0 | cooking | jessjelly | 2019-05-29 14:11:51.843703+01
 (1 row)
 
+INSERT 0 1

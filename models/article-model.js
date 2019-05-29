@@ -60,3 +60,21 @@ exports.addComment = ({ username, body, article_id }) => {
         .insert([obj])
         .returning('*')
 }
+
+exports.addNewArticle = ({ body, author, topic, title }) => {
+
+
+    let addObj = {
+        author,
+        body,
+        topic,
+        title
+    }
+
+
+    return connection('articles')
+        .insert([addObj])
+        .returning('*')
+
+
+}
