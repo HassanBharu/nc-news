@@ -1,9 +1,14 @@
-\c nc_news
+\c nc_news_test
 
 
-INSERT INTO articles (author,body,topic,title)
-VALUES ('jessjelly', 'cool story','cooking','title')
-RETURNING *
+DELETE FROM comments WHERE article_id = 1;
+DELETE FROM articles WHERE article_id = 1;
+
+SELECT * FROM comments;
+
+SELECT article_id FROM articles;
+
+
 ;
 --(SELECT slug from topics where slug = 'cooking')
 

@@ -136,7 +136,7 @@ describe.only('/api', () => {
             })
         })
         describe('/articles', () => {
-          it.only('POST status 200 - responds with the added article if a new article has been added', () => {
+          it('POST status 200 - responds with the added article if a new article has been added', () => {
             const postReq = {
               author: 'icellusedkars',
               body: 'jelly is nice',
@@ -151,6 +151,12 @@ describe.only('/api', () => {
               .then(({ body }) => {
                 expect(body.article[0].body).to.eql('jelly is nice')
               })
+          })
+          it.only('DELETE status:204 - responds with the status 204 and no content', () => {
+            return request
+              .delete('/api/articles/3')
+              .expect(204)
+
           })
           it('PATCH status:200 - allows incrementation to the votes column for a specific article', () => {
             return request

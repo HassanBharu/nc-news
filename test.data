@@ -1,7 +1,27 @@
-You are now connected to database "nc_news" as user "hassan".
- article_id | title |    body    | votes |  topic  |  author   |          created_at           
-------------+-------+------------+-------+---------+-----------+-------------------------------
-         38 | title | cool story |     0 | cooking | jessjelly | 2019-05-29 14:11:51.843703+01
-(1 row)
+You are now connected to database "nc_news_test" as user "hassan".
+DELETE 0
+DELETE 0
+ comment_id |    author     | article_id | votes |         created_at         |                                                     body                                                     
+------------+---------------+------------+-------+----------------------------+--------------------------------------------------------------------------------------------------------------
+          1 | butter_bridge |          9 |    16 | 2017-11-22 12:36:03.389+00 | Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!
+         14 | rogersop      |          5 |    16 | 2004-11-25 12:36:03.389+00 | What do you see? I have no idea where this will lead us. This place I speak of, is known as the Black Lodge.
+         15 | rogersop      |          5 |     1 | 2003-11-26 12:36:03.389+00 | I am 100% sure that we're not completely sure.
+         16 | icellusedkars |          6 |     1 | 2002-11-26 12:36:03.389+00 | This is a bad article name
+         17 | butter_bridge |          9 |    20 | 2001-11-26 12:36:03.389+00 | The owls are not what they seem.
+(5 rows)
 
-INSERT 0 1
+ article_id 
+------------
+          2
+          3
+          4
+          5
+          6
+          7
+          8
+          9
+         10
+         11
+         12
+(11 rows)
+
