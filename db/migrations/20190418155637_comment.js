@@ -6,7 +6,12 @@ exports.up = function (knex, Promise) {
         commentTable.foreign('author').references('users.username')
 
         commentTable.integer('article_id')
-        commentTable.foreign('article_id').references('articles.article_id')
+        commentTable.foreign('article_id')
+            .references('articles.article_id')
+            .onUpdate('CASCADE')
+            .onDelete('CASCADE')
+
+
         commentTable.integer('votes').defaultTo(0);
         commentTable.datetime('created_at').defaultTo(knex.fn.now());
         commentTable.text('body').notNullable()

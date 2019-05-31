@@ -1,6 +1,4 @@
 You are now connected to database "nc_news_test" as user "hassan".
-DELETE 0
-DELETE 0
  comment_id |    author     | article_id | votes |         created_at         |                                                     body                                                     
 ------------+---------------+------------+-------+----------------------------+--------------------------------------------------------------------------------------------------------------
           1 | butter_bridge |          9 |    16 | 2017-11-22 12:36:03.389+00 | Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!
@@ -13,7 +11,6 @@ DELETE 0
  article_id 
 ------------
           2
-          3
           4
           5
           6
@@ -23,5 +20,5 @@ DELETE 0
          10
          11
          12
-(11 rows)
+(10 rows)
 

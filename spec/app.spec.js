@@ -12,7 +12,7 @@ const request = supertest(app);
 chai.use(chaiSorted)
 
 describe.only('/api', () => {
-  // beforeEach(() => connection.seed.run());
+  beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
 
@@ -154,7 +154,7 @@ describe.only('/api', () => {
           })
           it.only('DELETE status:204 - responds with the status 204 and no content', () => {
             return request
-              .delete('/api/articles/3')
+              .delete('/api/articles/5')
               .expect(204)
 
           })
