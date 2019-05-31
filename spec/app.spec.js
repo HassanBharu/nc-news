@@ -12,7 +12,7 @@ const request = supertest(app);
 chai.use(chaiSorted)
 
 describe.only('/api', () => {
-  beforeEach(() => connection.seed.run());
+  // beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
 
