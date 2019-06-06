@@ -154,7 +154,7 @@ describe.only('/api', () => {
           })
           it.only('DELETE status:204 - responds with the status 204 and no content', () => {
             return request
-              .delete('/api/articles/5')
+              .delete('/api/articles/1')
               .expect(204)
 
           })

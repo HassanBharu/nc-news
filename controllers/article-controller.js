@@ -54,6 +54,6 @@ exports.deleteArticle = (req, res, next) => {
     removeArticle(req.params)
         .then(article => {
             console.log(article)
-            res.status(204).send({ article })
-        })
+            res.status(204).send()
+        }).catch(err => { console.log(err); next(err) })
 }
