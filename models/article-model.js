@@ -5,9 +5,9 @@ exports.fetchAllArticles = ({ author, topic, sort_by = 'created_at', order = 'de
     return connection
         .select('articles.*')
         .from('articles')
+        .count('articles')
         .leftJoin('comments', 'comments.article_id', 'articles.article_id')
         .groupBy('articles.article_id')
-        .count('articles')
         .count('comments.comment_id AS comment_count')
         .modify(query => {
             if (author) query.where('articles.author', '=', author)
