@@ -85,6 +85,6 @@ exports.removeArticle = ({ article_id }) => {
 
     return connection('articles')
         .where({ article_id })
-        .returning('*')
         .del()
+        .returning('*')
 }
