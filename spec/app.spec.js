@@ -380,8 +380,14 @@ describe.only('/api', () => {
                     .then(({ body }) => {
                       expect(body.articles[0].author).to.eql('icellusedkars')
                     })
-
-
+                })
+                it.only('GET status:200- responds with all users', () => {
+                  return request
+                    .get('/api/users')
+                    .expect(200)
+                    .then(({ body }) => {
+                      expect(body.users[0]).to.have.keys('username', 'avatar_url', 'name')
+                    })
                 })
                 it('GET status:404- responds with invalid username if the incorrect user has been passed', () => {
                   return request

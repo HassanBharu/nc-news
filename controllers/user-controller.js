@@ -1,4 +1,4 @@
-const { fetchUserById, fetchUserArticles } = require('../models/user-model')
+const { fetchUserById, fetchUserArticles, fetchAllUsers } = require('../models/user-model')
 
 exports.getUserByID = (req, res, next) => {
 
@@ -15,5 +15,12 @@ exports.userArticles = (req, res, next) => {
     fetchUserArticles(username)
         .then(articles => {
             res.status(200).send({ articles })
+        })
+}
+
+exports.allUsers = (req, res, next) => {
+    fetchAllUsers()
+        .then(users => {
+            res.status(200).send({ users })
         })
 }

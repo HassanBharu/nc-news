@@ -16,3 +16,10 @@ exports.fetchUserArticles = (username) => {
         .where('articles.author', '=', username)
         .returning('*')
 }
+
+exports.fetchAllUsers = () => {
+    return connection
+        .select('*')
+        .from('users')
+        .returning('*')
+}
