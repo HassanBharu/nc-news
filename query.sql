@@ -3,9 +3,8 @@
 
 
 
-SELECT * FROM comments;
-
-SELECT article_id FROM articles;
+SELECT * from articles 
+WHERE articles.author = 'icellusedkars';
 
 
 ;

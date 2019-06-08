@@ -7,3 +7,12 @@ exports.fetchUserById = ({ username }) => {
         .where('username', '=', username)
         .returning('*')
 }
+
+exports.fetchUserArticles = (username) => {
+    console.log(username)
+    return connection
+        .select('*')
+        .from('articles')
+        .where('articles.author', '=', username)
+        .returning('*')
+}

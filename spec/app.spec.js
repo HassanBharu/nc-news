@@ -152,7 +152,7 @@ describe.only('/api', () => {
                 expect(body.article[0].body).to.eql('jelly is nice')
               })
           })
-          it.only('DELETE status:204 - responds with the status 204 and no content', () => {
+          it('DELETE status:204 - responds with the status 204 and no content', () => {
             return request
               .delete('/api/articles/1')
               .expect(204)
@@ -309,7 +309,7 @@ describe.only('/api', () => {
                     expect(body.msg).to.eql('bad request')
                   })
               })
-              it.only('GET status:400 - responds with a single comment', () => {
+              it('GET status:400 - responds with a single comment', () => {
                 return request
                   .get('/api/comments/2')
                   .expect(200)
@@ -372,6 +372,16 @@ describe.only('/api', () => {
                     .then(({ body }) => {
                       expect(body.user.username).to.eql('icellusedkars')
                     })
+                })
+                it.only('GET status:200- responds with articles written by a specific author', () => {
+                  return request
+                    .get('/api/users/icellusedkars/articles')
+                    .expect(200)
+                    .then(({ body }) => {
+                      expect(body.articles[0].author).to.eql('icellusedkars')
+                    })
+
+
                 })
                 it('GET status:404- responds with invalid username if the incorrect user has been passed', () => {
                   return request
