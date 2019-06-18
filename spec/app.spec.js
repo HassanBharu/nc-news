@@ -236,17 +236,17 @@ describe.only('/api', () => {
                   expect(body.comment.body).to.eql('THE BEST ARTICLE EVER MAN!!')
                 })
             })
-            it('POST status:400 - responds bad request if the value of body has been entered incorrectly', () => {
+            it.only('POST status:404 - responds bad request if the value of body is empty', () => {
 
               const postReq = {
-                username: 'icellused',
-                body: 'THE BEST ARTICLE EVER MAN!!'
+                username: 'icellusedkars',
+                body: ''
               }
 
               return request
                 .post('/api/articles/1/comments')
                 .send(postReq)
-                .expect(400)
+                .expect(404)
                 .then(({ body }) => {
                   expect(body.msg).to.equal('bad request')
                 })
@@ -373,7 +373,7 @@ describe.only('/api', () => {
                       expect(body.user.username).to.eql('icellusedkars')
                     })
                 })
-                it.only('GET status:200- responds with articles written by a specific author', () => {
+                it('GET status:200- responds with articles written by a specific author', () => {
                   return request
                     .get('/api/users/icellusedkars/articles')
                     .expect(200)
@@ -381,7 +381,7 @@ describe.only('/api', () => {
                       expect(body.articles[0].author).to.eql('icellusedkars')
                     })
                 })
-                it.only('GET status:200- responds with all users', () => {
+                it('GET status:200- responds with all users', () => {
                   return request
                     .get('/api/users')
                     .expect(200)

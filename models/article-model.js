@@ -50,6 +50,7 @@ exports.fetchArticleComments = ({ article_id, sort_by, order = 'desc', limit = 1
 }
 
 exports.addComment = ({ username, body, article_id }) => {
+    console.log(body)
     const obj = {
         author: username,
         body: body,

@@ -2,7 +2,7 @@ module.exports = [
     {
         username: 'tickle122',
         name: 'Tom Tickle',
-        avatar_url: 'https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.jpg/revision/latest?cb=20180127221953',
+        avatar_url: 'https://vignette.wikia.nocookie.net/mrmen/images/8/85/Mr._Tickle_show.jpg/revision/latest/scale-to-width-down/180?cb=20180723214114',
     },
     {
         username: 'grumpy19',
@@ -17,12 +17,12 @@ module.exports = [
     {
         username: 'cooljmessy',
         name: 'Peter Messy',
-        avatar_url: 'https://vignette.wikia.nocookie.net/mrmen/images/1/17/Mr._Messy_show.jpg/revision/latest/scale-to-width-down/180?cb=20180723214026',
+        avatar_url: 'https://images.beerfax.com/quiz/a67395aa5fc9591e4fb07ccfb2553a8a.jpeg',
     },
     {
         username: 'weegembump',
         name: 'Gemma Bump',
-        avatar_url: 'https://vignette.wikia.nocookie.net/mrmen/images/7/7e/MrMen-Bump.jpg/revision/latest/scale-to-width-down/250?cb=20180123225553',
+        avatar_url: 'https://www.buddhistdoor.net/upload/file/20190212/19814/c5b34d29a021f8b6ebdbe20e1712017b_715__2.jpeg',
     },
     {
         username: 'jessjelly',
