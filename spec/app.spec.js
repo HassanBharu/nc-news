@@ -236,11 +236,11 @@ describe('/api', () => {
                   expect(body.comment.body).to.eql('THE BEST ARTICLE EVER MAN!!')
                 })
             })
-            it('POST status:404 - responds bad request if the value of body is empty', () => {
+            it.only('POST status:201 - rresponds with error if comment body has no input', () => {
 
               const postReq = {
                 username: 'icellusedkars',
-                body: ''
+                body: null
               }
 
               return request
@@ -248,7 +248,7 @@ describe('/api', () => {
                 .send(postReq)
                 .expect(404)
                 .then(({ body }) => {
-                  expect(body.msg).to.equal('bad request')
+                  expect(body.msg).to.eql('')
                 })
             })
             it('POST status:400 - responds bad request if the KEY of body has been entered incorrectly', () => {

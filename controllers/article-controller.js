@@ -45,9 +45,11 @@ exports.postArticle = (req, res, next) => {
 
 exports.postComment = (req, res, next) => {
     addComment({ ...req.body, ...req.params })
-    console.log(req.body)
         .then(([comment]) => {
-            res.status(201).send({ comment })
+            console.log(comment)
+            if (comment.body.length !== 0) {
+                res.status(201).send({ comment })
+            } else return Promise.reject({ status: 400, msg: 'invalid request' })
         }).catch(next)
 }
 

@@ -1,68 +1,227 @@
-# nc-news
+# Northcoders New API 
 
-## Available Scripts
+This project is a RESTful Application Programming Interface (API) that utilises http methodologies in order to retrieve, edit, add or delete articles, topics, comments and users from a generated news based database.
 
-Create development and test databases locally:
+## Getting Started
 
-```bash
+Follow these instructions in order to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+In order to install and run this software locally, you will require node.js.
+
+## Installing
+
+1. First of all fork this project to your own repo.
+2. Clone the repo remotely by executing this command:
+
+```
+git clone <Insert Github Repo Link>
+```
+
+1. Change directory to the local repo file.
+2. The following dependencies are required for deployment/production:
+
+```
+body-parser: ^1.18.3
+express: ^4.16.4
+knex: ^0.15.2
+pg: ^7.8.0
+```
+
+1. These dependencies are required for testing purposes:
+
+```
+supertest: ^3.4.2
+nodemon: ^1.18.10
+mocha: ^5.2.0
+chai: ^4.2.0
+```
+
+1. Running the following command will install the dependencies:
+
+```
+npm install
+```
+
+## Setting up The Database
+
+1. Create a config file in the project root directory, name it as such:
+
+```
+knexfile.js
+```
+
+1. In order to seed and migrate the database depending on the environment, see below (if using linux you will need to include psql user credentials);
+
+```
+const ENV = process.env.NODE_ENV || 'development'; 
+
+const baseConfig = {
+  client: "pg",
+  seeds: {
+    directory: "./db/seeds"
+  },
+  migrations: {
+    directory: "./db/migrations"
+  }
+};
+
+const dbConfig = {
+  development: {
+    connection: {
+      database: 'nc_news',
+    },
+  },
+  test: {
+    connection: {
+      database: 'nc_news_test',
+    },
+  },
+};
+
+module.exports = { ...baseConfig, ...dbConfig[ENV] };
+```
+
+** You may want to gitignore this file if sensitive data is used **
+
+1. To setup and seed the database, run:
+
+```
 npm run setup-dbs
-```
-
-Create a new migration file:
-
-```bash
-npm run migrate-make <filename>
-```
-
-Run all migrations:
-
-```bash
-npm run migrate-latest
-```
-
-Rollback all migrations:
-
-```bash
-npm run migrate-rollback
-```
-
-Run tests:
-
-```bash
-npm test
-```
-
-Rollback, migrate -> latest, then start inserting data into the database:
-
-```bash
+npm run migrate:rollback
+npm run migrate:latest
 npm run seed
 ```
 
-Run the server with `nodemon`, for hot reload:
+## Testing
 
-```bash
-npm run dev
+There are 2 spec files for testing this project, utils.spec.js and app.spec.js.
+
+Executing the following command will run the entire test suite:
+
+```
+npm run test
 ```
 
-Run the server with `node`:
+### API/Endpoint Testing
 
-```bash
-npm start
+The app.spec.js file tests the API endpoints to make sure they all work as desired and also tests for error handling, for example:
+
+```
+   it('GET status:200 - bring back all the topics', () => {
+      return request
+        .get('/api/topics')
+        .expect(200)
+        .then(({ body }) => {
+          expect(body.topics).to.be.an('array')
+        })
+    });
+```
+
+### Seeding/Utils Testing
+
+The utils.spec.js file tests that the seeding functions work as desired
+
+
+## Routes
+
+- For API routes/endpoints please reference the api-endpoints.json file.
+
+## Deployment with Heroku
+
+If you wish to deploy your own live version of the application follow these steps:
+
+1. Create a Heroku account if you don't already have one.
+2. Whilst in the same directory as your local repository run these commands:
+
+```
+heroku create <name of app>
+git push heroku master
+```
+
+1. In your browser login into heroku, select the app and attach the add-on feature 'heroku postgres'.
+2. Now you will have to make sure changes to the project/apps code in order for it to run on heroku, add the following line of code to the top of knexfile.js:
+
+```
+const { DB_URL } = process.env;
+```
+
+1. In the same file add the below code to the dbConfig object, this allows the app to understand the enviroment it will be ran on, and to connect to the appropriate database:
+
+```
+production: {
+    connection: `${DB_URL}?ssl=true`,
+  },
+```
+
+1. Next, you need to ensure the database gets seeded with the development data, so alter the ./db/data/index.js to look like this:
+
+```
+const data = { test, development , production: development};
+```
+
+1. Also you will need to alter the ./db/connection.js file to look like this:
+
+```
+const ENV = process.env.NODE_ENV || 'development';
+const config = ENV === 'production' ? { client: 'pg', connection: process.env.DATABASE_URL } : require('../knexfile');
+
+module.exports = require('knex')(config);
+```
+
+1. Add the following scripts to the package.json (if there a start script already exists then omit this line):
+
+```
+"scripts": {
+    "start": "node listen.js",
+    "seed:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex seed:run",
+    "migrate:latest:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex migrate:latest",
+    "migrate:rollback:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex migrate:rollback",
+  }
+```
+
+1. Next, run these scripts in this exact order:
+
+```
+npm run migrate:rollback:prod
+npm run migrate:latest:prod
+npm run seed:prod
+```
+
+1. Lastly, commit these changes and push to heroku again:
+
+```
+git push heroku master
+```
+
+1. Now your app should be live on Heroku, run this to view it:
+
+```
+heroku open
+```
+
+1. If there any issues then debug with:
+
+```
+heroku logs --tail
+```
+
+## Built With
+
+- [Node.js](https://nodejs.org/en/docs/) - Used As The JavaScript Runtime Engine
+- [Knex](https://knexjs.org/) - Used As The SQL Query Builder
+- [Express](https://expressjs.com/en/api.html) - Used For The Web Application Framework
+- [PostgreSQL](https://node-postgres.com/) - The Database
+- [Heroku](https://devcenter.heroku.com/categories/nodejs-support) - Used For Live Application Deployment/Hosting
+
+## Author
+
+- **Hassan Bharu** - *Author*
+- **Northcoders**
+
+
 ```
 
 
 
-exports.up = function (knex, Promise) {
-    return knex.schema.createTable('articles', articlesTable => {
-        articlesTable.increments('article_id').primary();
-        articlesTable.string('title').notNullable();
-        articlesTable.string('tpoic').notNullable();
-        articlesTable.string('author').notNullable();
-        articlesTable.string('body').notNullable();
-        articlesTable.integer('created_at')
-    })
-};
-
-exports.down = function (knex, Promise) {
-    return knex.schema.dropTable('articles')
-};
