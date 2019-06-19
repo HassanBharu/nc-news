@@ -49,13 +49,24 @@ function formatCommentData(comments, articles) {
     if (comments.length !== 0) {
         for (let i = 0; i < comments.length; i++) {
             let newComment = { ...comments[i] }
+            console.log(newComment.created_at)
             let newArticle = articles.find(article =>
                 newComment.belongs_to === article.title
 
             )
             delete newComment.belongs_to
             delete newComment.created_by
+
             newComment.created_at = new Date(newComment.created_at)
+            const date = newComment.created_at.getDate()
+            const month = newComment.created_at.getMonth()
+            const year = newComment.created_at.getFullYear()
+            const timeStamp = new Date(newComment.created_at)
+            console.log(timeStamp)
+            const monthDateYear = date + "-" + (month + 1) + "-" + year
+
+            newComment.created_at = monthDateYear
+
             newComment.article_id = newArticle.article_id
             newComment.author = newArticle.author
 

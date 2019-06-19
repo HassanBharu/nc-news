@@ -66,7 +66,7 @@ describe('formatArticleData', () => {
     })
 })
 
-describe('#formatCommentData', () => {
+describe.only('#formatCommentData', () => {
     it('should return a new array if an empty array has been passed', () => {
         const input = []
         const actual = formatCommentData(input)

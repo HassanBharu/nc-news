@@ -11,7 +11,7 @@ const request = supertest(app);
 
 chai.use(chaiSorted)
 
-describe.only('/api', () => {
+describe('/api', () => {
   beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
@@ -236,7 +236,7 @@ describe.only('/api', () => {
                   expect(body.comment.body).to.eql('THE BEST ARTICLE EVER MAN!!')
                 })
             })
-            it.only('POST status:404 - responds bad request if the value of body is empty', () => {
+            it('POST status:404 - responds bad request if the value of body is empty', () => {
 
               const postReq = {
                 username: 'icellusedkars',
