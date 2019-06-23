@@ -60,7 +60,7 @@ exports.addComment = ({ username, body, article_id }) => {
     return connection('comments')
         .insert([obj])
         .returning('*')
-}
+    }
 
 exports.addNewArticle = ({ body, author, topic, title }) => {
 

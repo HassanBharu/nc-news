@@ -23,7 +23,7 @@ git clone <Insert Github Repo Link>
 2. The following dependencies are required for deployment/production:
 
 ```
-body-parser: ^1.18.3
+
 express: ^4.16.4
 knex: ^0.15.2
 pg: ^7.8.0
@@ -96,7 +96,7 @@ npm run seed
 
 ## Testing
 
-There are 2 spec files for testing this project, utils.spec.js and app.spec.js.
+There are 2 spec files for testing this project, index.spec.js and app.spec.js.
 
 Executing the following command will run the entire test suite:
 
@@ -121,91 +121,13 @@ The app.spec.js file tests the API endpoints to make sure they all work as desir
 
 ### Seeding/Utils Testing
 
-The utils.spec.js file tests that the seeding functions work as desired
+The index.spec.js file tests that the seeding functions work as desired
 
 
 ## Routes
 
-- For API routes/endpoints please reference the api-endpoints.json file.
+- For API routes/endpoints please reference the api-conteoller.js file located in controllers folder.
 
-## Deployment with Heroku
-
-If you wish to deploy your own live version of the application follow these steps:
-
-1. Create a Heroku account if you don't already have one.
-2. Whilst in the same directory as your local repository run these commands:
-
-```
-heroku create <name of app>
-git push heroku master
-```
-
-1. In your browser login into heroku, select the app and attach the add-on feature 'heroku postgres'.
-2. Now you will have to make sure changes to the project/apps code in order for it to run on heroku, add the following line of code to the top of knexfile.js:
-
-```
-const { DB_URL } = process.env;
-```
-
-1. In the same file add the below code to the dbConfig object, this allows the app to understand the enviroment it will be ran on, and to connect to the appropriate database:
-
-```
-production: {
-    connection: `${DB_URL}?ssl=true`,
-  },
-```
-
-1. Next, you need to ensure the database gets seeded with the development data, so alter the ./db/data/index.js to look like this:
-
-```
-const data = { test, development , production: development};
-```
-
-1. Also you will need to alter the ./db/connection.js file to look like this:
-
-```
-const ENV = process.env.NODE_ENV || 'development';
-const config = ENV === 'production' ? { client: 'pg', connection: process.env.DATABASE_URL } : require('../knexfile');
-
-module.exports = require('knex')(config);
-```
-
-1. Add the following scripts to the package.json (if there a start script already exists then omit this line):
-
-```
-"scripts": {
-    "start": "node listen.js",
-    "seed:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex seed:run",
-    "migrate:latest:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex migrate:latest",
-    "migrate:rollback:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex migrate:rollback",
-  }
-```
-
-1. Next, run these scripts in this exact order:
-
-```
-npm run migrate:rollback:prod
-npm run migrate:latest:prod
-npm run seed:prod
-```
-
-1. Lastly, commit these changes and push to heroku again:
-
-```
-git push heroku master
-```
-
-1. Now your app should be live on Heroku, run this to view it:
-
-```
-heroku open
-```
-
-1. If there any issues then debug with:
-
-```
-heroku logs --tail
-```
 
 ## Built With
 

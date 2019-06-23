@@ -1,7 +1,0 @@
-You are now connected to database "nc_news_test" as user "hassan".
- comment_id |    author     | article_id | votes |          created_at           | body 
-------------+---------------+------------+-------+-------------------------------+------
-         21 | icellusedkars |          1 |     0 | 2019-06-19 23:04:08.897868+01 | 
-(1 row)
-
-INSERT 0 1
